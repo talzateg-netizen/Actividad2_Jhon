@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+		"name": "Demo Service - Lógica de Negocio Bancaria (2 Entidades)",
+		"description": "Colección completa para probar las reglas de negocio de Cuenta y Movimiento en Spring Boot.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Cuentas",
+			"item": [
+				{
+					"name": "Listar Cuentas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/cuentas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "cuentas"]
+						},
+						"description": "Retorna las cuentas pre-cargadas (Cuenta 1: Activa con $500, Cuenta 2: Inactiva con $300)."
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Cuenta por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/cuentas/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "cuentas", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Nueva Cuenta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"numeroCuenta\": \"CTA-2001\",\n  \"titular\": \"Laura Rivas\",\n  \"saldo\": 1000.0,\n  \"activa\": true\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/cuentas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "cuentas"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Reglas Cumplidas (Éxito)",
+			"item": [
+				{
+					"name": "CASO 1: Depósito Válido (+ $200.0)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuenta\": { \"id\": 1 },\n  \"tipo\": \"DEPOSITO\",\n  \"monto\": 200.0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movimientos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "movimientos"]
+						},
+						"description": "REGLA CUMPLIDA: Incrementa el saldo de $500.0 a $700.0. Retorna HTTP 201 Created."
+					},
+					"response": []
+				},
+				{
+					"name": "CASO 2: Retiro Válido (- $150.0)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuenta\": { \"id\": 1 },\n  \"tipo\": \"RETIRO\",\n  \"monto\": 150.0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movimientos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "movimientos"]
+						},
+						"description": "REGLA CUMPLIDA: Retira con saldo suficiente y monto <= $1000. Retorna HTTP 201 Created."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Reglas Incumplidas (Errores)",
+			"item": [
+				{
+					"name": "CASO 3: Falla por Saldo Insuficiente (Retiro $950)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuenta\": { \"id\": 1 },\n  \"tipo\": \"RETIRO\",\n  \"monto\": 950.0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movimientos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "movimientos"]
+						},
+						"description": "REGLA INCUMPLIDA: El monto a retirar supera el saldo disponible. La cuenta no se modifica."
+					},
+					"response": []
+				},
+				{
+					"name": "CASO 4: Falla por Límite Excedido (Retiro $2500)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuenta\": { \"id\": 1 },\n  \"tipo\": \"RETIRO\",\n  \"monto\": 2500.0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movimientos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "movimientos"]
+						},
+						"description": "REGLA INCUMPLIDA: El monto supera el tope máximo de $1,000.00 por operación individual."
+					},
+					"response": []
+				},
+				{
+					"name": "CASO 5: Falla por Cuenta Inactiva (Cuenta ID 2)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuenta\": { \"id\": 2 },\n  \"tipo\": \"DEPOSITO\",\n  \"monto\": 100.0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movimientos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "movimientos"]
+						},
+						"description": "REGLA INCUMPLIDA: La cuenta 2 (Ana Martínez) está inactiva (activa = false) y no permite operar."
+					},
+					"response": []
+				},
+				{
+					"name": "CASO 6: Falla por Monto Inválido (-$50.0)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuenta\": { \"id\": 1 },\n  \"tipo\": \"DEPOSITO\",\n  \"monto\": -50.0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movimientos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "movimientos"]
+						},
+						"description": "REGLA INCUMPLIDA: El monto no puede ser cero ni negativo."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Historial de Movimientos",
+			"item": [
+				{
+					"name": "Listar Todos los Movimientos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/movimientos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "movimientos"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Movimientos por Cuenta (ID 1)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/movimientos/cuenta/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "movimientos", "cuenta", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
