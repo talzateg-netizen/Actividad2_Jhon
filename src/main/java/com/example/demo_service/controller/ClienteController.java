@@ -1,14 +1,7 @@
 package com.example.demo_service.controller;
 
-import com.example.demo_service.model.Cliente;
-import com.example.demo_service.service.MovimientoService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,34 +11,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.example.demo_service.model.Movimiento;
+import com.example.demo_service.service.MovimientoService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/movimientos")
 @Tag(name = "Movimientos (Lógica de Negocio)", description = "Endpoints para ejecutar transacciones bancarias aplicando las reglas del servicio")
-public class MovimientoController {
+public class ClienteController {
 
     private final MovimientoService movimientoService;
 
-    public MovimientoController(MovimientoService movimientoService) {
+    public ClienteController(MovimientoService movimientoService) {
         this.movimientoService = movimientoService;
     }
 
     @GetMapping
     @Operation(summary = "Listar todos los movimientos", description = "Retorna el historial completo de movimientos bancarios.")
-    public ResponseEntity<List<Cliente>> listarTodos() {
+    public ResponseEntity<List<Movimiento>> listarTodos() {
         return ResponseEntity.ok(movimientoService.obtenerTodos());
     }
 
     @GetMapping("/cuenta/{cuentaId}")
     @Operation(summary = "Listar movimientos por cuenta", description = "Retorna los movimientos realizados sobre una cuenta específica.")
-    public ResponseEntity<List<Cliente>> listarPorCuenta(@PathVariable Long cuentaId) {
+    public ResponseEntity<List<Movimiento>> listarPorCuenta(@PathVariable Long cuentaId) {
         return ResponseEntity.ok(movimientoService.obtenerPorCuenta(cuentaId));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener movimiento por ID", description = "Consulta el detalle y saldo resultante de una transacción específica.")
-    public ResponseEntity<Cliente> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<Movimiento> obtenerPorId(@PathVariable Long id) {
         return ResponseEntity.ok(movimientoService.obtenerPorId(id));
     }
 
@@ -106,19 +108,19 @@ public class MovimientoController {
             @ApiResponse(
                     responseCode = "201",
                     description = "Movimiento financiero procesado y saldo actualizado exitosamente.",
-                    content = @Content(schema = @Schema(implementation = Cliente.class))
+                    content = @Content(schema = @Schema(implementation = Movimiento.class))
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Regla de negocio incumplida (Saldo insuficiente, límite excedido, cuenta inactiva o datos inválidos)."
             )
     })
-    public ResponseEntity<Cliente> registrarMovimiento(
+    public ResponseEntity<Movimiento> registrarMovimiento(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "Datos del movimiento usando directamente la entidad Movimiento",
                     required = true,
                     content = @Content(
-                            schema = @Schema(implementation = Cliente.class),
+                            schema = @Schema(implementation = Movimiento.class),
                             examples = {
                                     @ExampleObject(
                                             name = "1. Éxito: Depósito Válido",
@@ -178,8 +180,8 @@ public class MovimientoController {
                             }
                     )
             )
-            @RequestBody Cliente movimiento) {
-        Cliente guardado = movimientoService.registrarMovimiento(movimiento);
+            @RequestBody Movimiento movimiento) {
+        Movimiento guardado = movimientoService.registrarMovimiento(movimiento);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
     }
 
