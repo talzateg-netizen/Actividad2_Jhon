@@ -2,7 +2,7 @@ package com.example.demo_service.service;
 
 import com.example.demo_service.exception.ReglaNegocioException;
 import com.example.demo_service.model.Cuenta;
-import com.example.demo_service.model.Movimiento;
+import com.example.demo_service.model.Cliente;
 import com.example.demo_service.repository.CuentaRepository;
 import com.example.demo_service.repository.MovimientoRepository;
 import org.springframework.stereotype.Service;
@@ -52,15 +52,15 @@ public class MovimientoService {
         this.cuentaRepository = cuentaRepository;
     }
 
-    public List<Movimiento> obtenerTodos() {
+    public List<Cliente> obtenerTodos() {
         return movimientoRepository.findAll();
     }
 
-    public List<Movimiento> obtenerPorCuenta(Long cuentaId) {
+    public List<Cliente> obtenerPorCuenta(Long cuentaId) {
         return movimientoRepository.findByCuentaId(cuentaId);
     }
 
-    public Movimiento obtenerPorId(Long id) {
+    public Cliente obtenerPorId(Long id) {
         return movimientoRepository.findById(id)
                 .orElseThrow(() -> new ReglaNegocioException("No se encontró el movimiento con ID: " + id));
     }
@@ -72,7 +72,7 @@ public class MovimientoService {
      * @return Movimiento registrado con saldo resultante y fecha asignada.
      */
     @Transactional
-    public Movimiento registrarMovimiento(Movimiento movimiento) {
+    public Cliente registrarMovimiento(Cliente movimiento) {
         // --- 1. Validaciones estructurales y de monto ---
         if (movimiento.getMonto() == null || movimiento.getMonto() <= 0) {
             throw new ReglaNegocioException("El monto de la transacción debe ser mayor a 0.");
