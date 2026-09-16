@@ -40,9 +40,15 @@ public class VentaService {
             Long productoId = detalle.getProducto().getId();
             if (!productosIncluidos.add(productoId)) throw new ReglaNegocioException("No se puede repetir un producto dentro de la misma venta: " + productoId);
             Producto producto = productoRepository.findById(productoId).orElseThrow(() -> new ReglaNegocioException("Producto no encontrado con ID: " + productoId));
-            if (!Boolean.TRUE.equals(producto.getActivo())) throw new ReglaNegocioException("El producto '" + producto.getNombre() + "' est� inactivo.");
-            if (producto.getPrecio() == null || producto.getPrecio().compareTo(BigDecimal.ZERO) <= 0) throw new ReglaNegocioException("El precio del producto '" + producto.getNombre() + "' no es v�lido.");
+            if (!Boolean.TRUE.equals(producto.getActivo())) throw new ReglaNegocioException("El producto '" + producto.getNombre() + "' está inactivo.");
+            if (producto.getPrecio() == null || producto.getPrecio().compareTo(BigDecimal.ZERO) <= 0) throw new ReglaNegocioException("El precio del producto '" + producto.getNombre() + "' no es válido.");
             if (producto.getStock() == null || producto.getStock() < detalle.getCantidad()) throw new ReglaNegocioException("Stock insuficiente para el producto '" + producto.getNombre() + "'. Disponible: " + producto.getStock() + ".");
             BigDecimal subtotal = producto.getPrecio().multiply(BigDecimal.valueOf(detalle.getCantidad())).setScale(2, RoundingMode.HALF_UP);
             detalle.setProducto(producto); detalle.setPrecioUnitario(producto.getPrecio()); detalle.setSubtotal(subtotal); detalle.setVenta(venta);
-            producto.setStock(producto.getStock() - detalle.getCantidad()); productoReposito
+            producto.setStock(producto.getStock() - detalle.getCantidad()); productoRepository.save(producto);
+            total = total.add(subtotal);
+        }
+        venta.setCliente(cliente); venta.setTotal(total.setScale(2, RoundingMode.HALF_UP)); venta.setFecha(LocalDateTime.now()); venta.setEstado("COMPLETADA");
+        return repository.save(venta);
+    }
+}

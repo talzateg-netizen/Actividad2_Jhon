@@ -15,4 +15,4 @@ public class ProveedorController {
     @PostMapping public ResponseEntity<Proveedor> crear(@RequestBody Proveedor dato) { return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(dato)); }
     @PutMapping("/{id}") public Proveedor actualizar(@PathVariable Long id, @RequestBody Proveedor dato) { return service.actualizar(id, dato); }
     @DeleteMapping("/{id}") @ResponseStatus(HttpStatus.NO_CONTENT) public void eliminar(@PathVariable Long id) { service.eliminar(id); }
-}
+}ñ
