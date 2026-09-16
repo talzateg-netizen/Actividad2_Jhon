@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo_service.model.Movimiento;
-import com.example.demo_service.service.MovimientoService;
+import com.example.demo_service.service.CategoriaService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,9 +27,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Movimientos (Lógica de Negocio)", description = "Endpoints para ejecutar transacciones bancarias aplicando las reglas del servicio")
 public class ClienteController {
 
-    private final MovimientoService movimientoService;
+    private final CategoriaService movimientoService;
 
-    public ClienteController(MovimientoService movimientoService) {
+    public ClienteController(CategoriaService movimientoService) {
         this.movimientoService = movimientoService;
     }
 
