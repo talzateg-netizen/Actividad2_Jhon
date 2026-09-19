@@ -315,7 +315,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/detalle-ventas",
+              "raw": "http://localhost:8080/api/detalles-venta",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -343,7 +343,7 @@
               "raw": "{\n  \"cantidad\": 2,\n  \"precioUnitario\": 45000.0,\n  \"subtotal\": 90000.0,\n  \"venta\": {\"id\": 1},\n  \"producto\": {\"id\": 1}\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/api/detalle-ventas",
+              "raw": "http://localhost:8080/api/detalles-venta",
               "protocol": "http",
               "host": [
                 "localhost"
