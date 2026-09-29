@@ -1,8 +1,8 @@
 {
   "info": {
     "_postman_id": "c7f1a92b-8a43-4e89-9a22-123456789abc",
-    "name": "Sistema de Ventas - API REST (6 Entidades)",
-    "description": "Colección completa para probar el CRUD de las 6 entidades del proyecto de ventas: Categorías, Clientes, Productos, Proveedores, Ventas y DetalleVentas.",
+    "name": "Sistema de Ventas - API REST (6 Entidades + Casos de Error)",
+    "description": "Colección completa para probar el CRUD y casos de fallo/error de las entidades del proyecto de ventas.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -17,14 +17,9 @@
             "url": {
               "raw": "http://localhost:8080/api/categorias",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "categorias"
-              ]
+              "path": ["api", "categorias"]
             }
           }
         },
@@ -36,15 +31,9 @@
             "url": {
               "raw": "http://localhost:8080/api/categorias/1",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "categorias",
-                "1"
-              ]
+              "path": ["api", "categorias", "1"]
             }
           }
         },
@@ -65,14 +54,9 @@
             "url": {
               "raw": "http://localhost:8080/api/categorias",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "categorias"
-              ]
+              "path": ["api", "categorias"]
             }
           }
         }
@@ -89,14 +73,9 @@
             "url": {
               "raw": "http://localhost:8080/api/clientes",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "clientes"
-              ]
+              "path": ["api", "clientes"]
             }
           }
         },
@@ -108,15 +87,9 @@
             "url": {
               "raw": "http://localhost:8080/api/clientes/1",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "clientes",
-                "1"
-              ]
+              "path": ["api", "clientes", "1"]
             }
           }
         },
@@ -137,14 +110,9 @@
             "url": {
               "raw": "http://localhost:8080/api/clientes",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "clientes"
-              ]
+              "path": ["api", "clientes"]
             }
           }
         }
@@ -161,14 +129,9 @@
             "url": {
               "raw": "http://localhost:8080/api/proveedores",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "proveedores"
-              ]
+              "path": ["api", "proveedores"]
             }
           }
         },
@@ -189,14 +152,9 @@
             "url": {
               "raw": "http://localhost:8080/api/proveedores",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "proveedores"
-              ]
+              "path": ["api", "proveedores"]
             }
           }
         }
@@ -213,14 +171,9 @@
             "url": {
               "raw": "http://localhost:8080/api/productos",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "productos"
-              ]
+              "path": ["api", "productos"]
             }
           }
         },
@@ -241,14 +194,9 @@
             "url": {
               "raw": "http://localhost:8080/api/productos",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "productos"
-              ]
+              "path": ["api", "productos"]
             }
           }
         }
@@ -265,14 +213,9 @@
             "url": {
               "raw": "http://localhost:8080/api/ventas",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "ventas"
-              ]
+              "path": ["api", "ventas"]
             }
           }
         },
@@ -293,14 +236,9 @@
             "url": {
               "raw": "http://localhost:8080/api/ventas",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "ventas"
-              ]
+              "path": ["api", "ventas"]
             }
           }
         }
@@ -317,14 +255,9 @@
             "url": {
               "raw": "http://localhost:8080/api/detalle-ventas",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "detalle-ventas"
-              ]
+              "path": ["api", "detalle-ventas"]
             }
           }
         },
@@ -345,15 +278,69 @@
             "url": {
               "raw": "http://localhost:8080/api/detalle-ventas",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "8080",
-              "path": [
-                "api",
-                "detalle-ventas"
-              ]
+              "path": ["api", "detalle-ventas"]
             }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Pruebas de Error / Casos Negativos",
+      "item": [
+        {
+          "name": "Obtener Categoría Inexistente (Debe fallar 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/categorias/99999",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "categorias", "99999"]
+            },
+            "description": "Busca un ID que no existe en la base de datos para probar el manejo de excepciones de recursos no encontrados."
+          }
+        },
+        {
+          "name": "Crear Producto con Datos Vacíos (Debe fallar 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"\",\n  \"precio\": -10.0,\n  \"stock\": -5\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/productos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "productos"]
+            },
+            "description": "Envía campos vacíos o precios/stocks negativos para activar validaciones de Spring (@NotNull, @Min, etc.) y generar un error de validación."
+          }
+        },
+        {
+          "name": "Eliminar Cliente Inexistente (Debe fallar 404/500)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/clientes/88888",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "clientes", "88888"]
+            },
+            "description": "Intenta borrar un registro que no existe para comprobar la lógica de control al eliminar."
           }
         }
       ]
